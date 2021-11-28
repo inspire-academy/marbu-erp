@@ -1,0 +1,25 @@
+<odoo>
+    <data>
+        <record id="document_email_template" model="mail.template">
+        <field name="name">Document email template</field>
+        <field name="model_id" ref="document_page.model_document_page"/>            
+        <field name="auto_delete" eval="True"/>
+        <field name="email_from">${user.partner_id.email_formatted |safe}</field>
+        <field name="subject">${object.amc}</field>
+        <field name="body_html"><![CDATA[          
+        <div style="margin: 0px; padding: 0px;">
+        <p style="margin: 0px; padding: 0px; font-size: 13px;">
+         % set doc_name = 'External Communication' if is_external else 'Internal Communication'
+         Dear all,
+        <br /><br />
+        Good day!<br/><br/>
+        Here is an ${doc_name} from ${object.content_uid.name}, ${object.company_id.name} with reference: ${object.name}.
+        <br /><br />
+        </p>
+        </div>]]>
+        </field>
+        <field name="report_template" ref="report_document_page"/>
+        <field name="report_name">${(object.name or '').replace('/','_')}</field>
+        </record>
+    </data>
+</odoo>
