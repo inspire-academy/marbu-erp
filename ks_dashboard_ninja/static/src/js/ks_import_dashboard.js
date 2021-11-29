@@ -30,10 +30,11 @@ odoo.define('ks_dashboard_ninja.import_button', function(require) {
             //Only for our custom model
             if (this.modelName == "ks_dashboard_ninja.board") {
                 if (this.hasSidebar) {
-                    var other = [{
+                    var other = [];
+                    other.push({
                         label: _t("Export Dashboard"),
                         callback: this.ks_dashboard_export.bind(this)
-                    }];
+                    });
                     if (this.archiveEnabled) {
                         other.push({
                             label: _t("Archive"),
