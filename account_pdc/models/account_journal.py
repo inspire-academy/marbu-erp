@@ -37,8 +37,8 @@ class AccountJournal(models.Model):
         sequence on bank journals. Called upon module installation 
         via data file.
         """
-        pdcin = self.env.ref('ACCOUNT_PDC.account_payment_method_pdc_in')
-        pdcout = self.env.ref('ACCOUNT_PDC.account_payment_method_pdc_out')
+        pdcin = self.env.ref('account_pdc.account_payment_method_pdc_in')
+        pdcout = self.env.ref('account_pdc.account_payment_method_pdc_out')
         bank_journals = self.search([('type', '=', 'bank')])
         for bank_journal in bank_journals:
             bank_journal._create_check_sequence()
