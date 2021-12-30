@@ -36,7 +36,7 @@
     # for the full list
     "category": "Accounting & Finance",
     "images": ["static/description/main.png"],
-    "version": "14.0.0.2.3",
+    "version": "14.0.0.2.4",
     "price": 149,
     "currency": "EUR",
     # any module necessary for this one to work correctly
