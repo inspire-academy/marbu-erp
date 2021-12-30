@@ -47,5 +47,8 @@
         <record id="base.BRL" model="res.currency">
             <field name="currency_name">Brazilian real</field>
         </record>
+        <record id="base.QAR" model="res.currency">
+            <field name="currency_name">Qatari Riyals</field>
+        </record>
     </data>
 </odoo>
