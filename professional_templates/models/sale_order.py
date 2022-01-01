@@ -51,8 +51,7 @@ class SO(models.Model):
         'report.template.settings',
         'Quote/Order Style',
         help="Select Style to use when printing the Sales Order or Quote",
-        default=lambda self: self.partner_id.style or self.env.company_id.df_style 
-        or self.env.user.company_id.df_style)
+        default=lambda self: self.partner_id.style or self.env.user.company_id.df_style)
     project_title = fields.Char(
         'Title',
         help=
