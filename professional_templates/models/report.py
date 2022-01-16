@@ -52,8 +52,8 @@ class PDFReport(models.Model):
         result = super(PDFReport, self)._post_pdf(
             save_in_attachment, pdf_content=pdf_content, res_ids=res_ids
         )
-        if not "professional_templates." in self.report_name:
-            return result
+        #if not "professional_templates." in self.report_name:
+        #    return result
         if result:
             report = self
             # watermark & last page uploaded at report level will override the
