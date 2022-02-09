@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates>
+	<t t-extend="InventoryLines.Buttons">
+		<t t-jquery="button.o_button_validate_inventory" t-operation="after">
+			<button type="button" class='btn btn-primary o_button_validate_inventory_custom'>
+            Validate Inventory
+        </button>
+		</t>
+	</t>
+</templates>

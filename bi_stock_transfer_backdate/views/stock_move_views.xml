@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+    
+    
+        <template id="inv_validation_backend" name="inventiry_validation" inherit_id="web.assets_backend">
+	        <xpath expr="." position="inside">
+	            <script type="text/javascript" src="/bi_stock_transfer_backdate/static/src/js/inventory_validate_button.js"/>
+	            <link rel="stylesheet" type="text/scss" href="/bi_stock_transfer_backdate/static/src/js/inventory_validate.scss"/>
+	        </xpath>
+	    </template>
+        
+    
+        <record id="inherit_stock_move_view" model="ir.ui.view">
+            <field name="name">stock_move_view</field>
+            <field name="model">stock.move</field>
+            <field name="inherit_id" ref="stock.view_move_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='date']" position="after" >
+                    <field name="move_date" invisible='1'/>
+                    <field name="move_remark"/>
+                </xpath>
+            </field>
+        </record>
+        
+        
+        <record id="inherit_stockmoveline_view_form_readonly" model="ir.ui.view">
+            <field name="name">inherit.stockmoveline.form.readonly</field>
+            <field name="model">stock.move.line</field>
+            <field name="inherit_id" ref="stock.view_move_line_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='lot_id']" position="after">
+                    <field name="move_remarks_line"/>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="inherit_stockscraporder_view_form_readonly" model="ir.ui.view">
+            <field name="name">inherit.stockscraporder.form.readonly</field>
+            <field name="model">stock.scrap</field>
+            <field name="inherit_id" ref="stock.stock_scrap_form_view"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='company_id']" position="after">
+                    <field name="move_remarks_scrap"/>
+                </xpath>
+            </field>
+        </record>
+        
+        
+        <record id="inherit_stockinventory_line_view_form_readonly" model="ir.ui.view">
+            <field name="name">inherit.stockinventoryline.form.readonly</field>
+            <field name="model">stock.inventory.line</field>
+            <field name="inherit_id" ref="stock.stock_inventory_line_tree"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='prod_lot_id']" position="after">
+                    <field name="invline_remark"/>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="inherit_stockinventory_view_form_readonly" model="ir.ui.view">
+            <field name="name">inherit.stockinventory.form.readonly</field>
+            <field name="model">stock.inventory</field>
+            <field name="inherit_id" ref="stock.view_inventory_form"/>
+            <field name="arch" type="xml">
+                <button name="action_validate" attrs="{'invisible': ['|', ('state', '!=', 'confirm'), ('line_ids', '!=', [])]}" position="replace">
+                    <button name="action_validate_custom" string="Validate Inventory" type="object" class="oe_highlight" attrs="{'invisible': [('state', '!=', 'confirm')]}"/>
+                </button>
+                <button name="action_validate" attrs="{'invisible': ['|', ('state', '!=', 'confirm'), ('line_ids', '=', [])]}"  position="attributes">
+                <attribute name="invisible">1</attribute>
+                </button>
+            </field>
+        </record>
+        
+        
+        
+        
+        
+
+    </data>
+</odoo>
