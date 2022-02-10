@@ -45,8 +45,7 @@ class RemarkSoldItem(models.TransientModel):
                                     'ref':data.location_id.name,
                                     'stock_move_id':data.id})
 				picking.button_validate()
-				if picking.state == 'draft':
-				    picking.action_confirm()				
+
 				for move in picking.move_lines.filtered(lambda m: m.state not in ['done', 'cancel']):
 				    for move_line in move.move_line_ids:
 				        move_line.qty_done = move_line.product_uom_qty
