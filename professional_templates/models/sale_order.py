@@ -98,3 +98,17 @@ class SO(models.Model):
         if self.env.user.has_group('sale.group_auto_done_setting'):
             self.action_done()
         return True
+    @api.model
+    def create(self, vals):
+        if 'company_id' in vals:
+            self = self.with_company(vals['company_id'])
+        if vals.get('name', _('New')) == _('New'):
+            seq_date = None
+            order_date = vals['date_order']
+            prefix=None
+            if 'date_order' in vals:
+                seq_date = fields.Datetime.context_timestamp(self, fields.Datetime.to_datetime(vals['date_order']))
+                prefix = 'SO/'+ order_date[2:4] + '/' + order_date[5:7] + '/'
+            vals['name'] = prefix + self.env['ir.sequence'].next_by_code('sale.order', sequence_date=seq_date) or _('New')
+        res= super(SO, self).create(vals)
+        return res
