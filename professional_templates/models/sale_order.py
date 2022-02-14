@@ -108,7 +108,7 @@ class SO(models.Model):
             prefix=None
             if 'date_order' in vals:
                 seq_date = fields.Datetime.context_timestamp(self, fields.Datetime.to_datetime(vals['date_order']))
-                prefix = 'SO/'+ order_date[2:4] + '/' + order_date[5:7] + '/'
+                prefix = 'SO/'+ order_date[0:4] + '/' + order_date[5:7] + '/'
             vals['name'] = prefix + self.env['ir.sequence'].next_by_code('sale.order', sequence_date=seq_date) or _('New')
         res= super(SO, self).create(vals)
         return res
