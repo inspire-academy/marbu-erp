@@ -87,12 +87,3 @@ class PO(models.Model):
             vals['name'] = prefix + self_comp.env['ir.sequence'].next_by_code('purchase.order', sequence_date=seq_date) or '/'
         return super(PO, self_comp).create(vals)
 
-class PurchaseReport(models.Model): 
-
-    _inherit = 'purchase.report'
-
-    product_qty = fields.Float(string='Quantity', digits=dp.get_precision('Product Unit of Measure'), readonly=True) 
-    qty_received = fields.Float(string="Received Qty", digits=dp.get_precision('Product Unit of Measure'), readonly=True) 
-    qty_balanced = fields.Float(string="Balance", digits=dp.get_precision('Product Unit of Measure'), readonly=True) 
-    def _select(self):
-        return super(PurchaseReport, self)._select() + ", sum(l.qty_received),sum(l.product_qty - l.qty_received) as qty_balanced"
