@@ -91,7 +91,7 @@ class PurchaseReport(models.Model):
 
     _inherit = 'purchase.report'
 
-    qty_balanced = fields.Float(string="Balance",group_operator = 'avg', readonly=True) 
+    qty_balanced = fields.Float(string="Balance",readonly=True) 
     def _select(self):
         return super(PurchaseReport, self)._select() + ", (l.product_qty - l.qty_received) as qty_balanced"
     def _group_by(self):
