@@ -28,12 +28,12 @@ class PurchaseOrderLine(models.Model):
         for line in self:
             if line.discount != 0:
                 self.fixed_discount = 0.0
-                fixed_discount = (line.price_unit * line.product_qty) * (line.discount / 100.0)
+                fixed_discount = round((line.price_unit * line.product_qty) * (line.discount / 100.0))
                 line.update({"fixed_discount": fixed_discount})
             if line.discount == 0:
                 fixed_discount = 0.000
                 line.update({"fixed_discount": fixed_discount})
-                
+
     def _prepare_compute_all_values(self):
         # Hook method to returns the different argument values for the
         # compute_all method, due to the fact that discounts mechanism
