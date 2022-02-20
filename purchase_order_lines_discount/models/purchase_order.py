@@ -12,17 +12,6 @@ class PurchaseOrderLine(models.Model):
 
     discount = fields.Float(string='% Disc.', digits='Discount', default=0.000)
 
-    @api.onchange("discount")
-    def _onchange_discount(self):
-        for line in self:
-            if line.discount != 0:
-                self.fixed_discount = 0.0
-                fixed_discount = (line.price_unit * line.product_qty) * (line.discount / 100.0)
-                line.update({"fixed_discount": fixed_discount})
-            if line.discount == 0:
-                fixed_discount = 0.000
-                line.update({"fixed_discount": fixed_discount})
-
     @api.onchange("fixed_discount")
     def _onchange_fixed_discount(self):
         for line in self:
@@ -34,6 +23,17 @@ class PurchaseOrderLine(models.Model):
                 discount = 0.0
                 line.update({"discount": discount})
 
+    @api.onchange("discount")
+    def _onchange_discount(self):
+        for line in self:
+            if line.discount != 0:
+                self.fixed_discount = 0.0
+                fixed_discount = (line.price_unit * line.product_qty) * (line.discount / 100.0)
+                line.update({"fixed_discount": fixed_discount})
+            if line.discount == 0:
+                fixed_discount = 0.000
+                line.update({"fixed_discount": fixed_discount})
+                
     def _prepare_compute_all_values(self):
         # Hook method to returns the different argument values for the
         # compute_all method, due to the fact that discounts mechanism
@@ -43,7 +43,8 @@ class PurchaseOrderLine(models.Model):
         self.ensure_one()
         price_unit_w_discount = self.price_unit
         if self.discount != 0:
-            price_unit_w_discount = self.price_unit * (1 - (self.discount / 100.0))
+            #price_unit_w_discount = self.price_unit * (1 - (self.discount / 100.0))
+            price_unit_w_discount = self.price_unit - (self.fixed_discount /self.product_qty)
 
         return {
             'price_unit': price_unit_w_discount,
@@ -52,3 +53,4 @@ class PurchaseOrderLine(models.Model):
            'product': self.product_id,
             'partner': self.order_id.partner_id,
         }
+
