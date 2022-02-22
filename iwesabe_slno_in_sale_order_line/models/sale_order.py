@@ -34,5 +34,6 @@ class SaleOrderLine(models.Model):
             if not order_line.sl_no:
                 serial_no = 1
                 for line in order_line.mapped('order_id').order_line:
-                    line.sl_no = serial_no
-                    serial_no += 1
+                    if line.product_id:
+                        line.sl_no = serial_no
+                        serial_no += 1
