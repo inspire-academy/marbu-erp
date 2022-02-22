@@ -49,9 +49,11 @@ class OrdinalNumber(models.Model):
 
     @api.depends('sequence', 'move_id')
     def _compute_get_number(self):
-        for invoice in self.mapped('move_id'):
-            number_sequence = 1
-            for line in invoice.line_ids:
-                if line.product_id:
-                    line.number_sequence = number_sequence
-                    number_sequence += 1
+        for line_id in self:
+            if not line_id.number_sequence:
+                number_sequence = 1
+                for invoice in self.mapped('move_id'):
+                    for line in invoice.line_ids:
+                        if line.product_id:
+                            line.number_sequence = number_sequence
+                            number_sequence += 1
