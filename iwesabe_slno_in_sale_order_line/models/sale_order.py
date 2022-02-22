@@ -37,3 +37,21 @@ class SaleOrderLine(models.Model):
                     if line.product_id:
                         line.sl_no = serial_no
                         serial_no += 1
+
+class OrdinalNumber(models.Model):
+
+    _inherit = 'account.invoice.line'
+
+    number_sequence = fields.Integer(
+        compute='_compute_get_number',
+        store=True,
+    )
+
+    @api.depends('sequence', 'invoice_id')
+    def _compute_get_number(self):
+        for invoice in self.mapped('invoice_id'):
+            number_sequence = 1
+            for line in invoice.invoice_line_ids:
+                if line.product_id:
+                    line.number_sequence = number_sequence
+                    number_sequence += 1
