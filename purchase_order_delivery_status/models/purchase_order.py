@@ -41,7 +41,7 @@ class PurchaseOrder(models.Model):
             orderlines = rec.mapped('order_line')
             if not pickings and not orderlines.filtered(lambda x:x.product_id.type == 'service'):
                 rec.delivery_status = 'nothing'
-            elif all(o.qty_received == 0 for o in orderlines):
+            elif all(o.qty_received >= 0 for o in orderlines):
                 rec.delivery_status = 'to_receive'
             elif orderlines.filtered(lambda x: x.qty_received < x.product_qty):
                 rec.delivery_status = 'partial'
