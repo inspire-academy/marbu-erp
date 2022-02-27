@@ -65,4 +65,6 @@ class PurchaseOrder(models.Model):
                 rec.delivery_status = 'received'
             elif any(p.state in ('waiting', 'confirmed') for p in pickings):
                 rec.delivery_status = 'processing'
+            else:
+                rec.delivery_status = '-NA-'
     
