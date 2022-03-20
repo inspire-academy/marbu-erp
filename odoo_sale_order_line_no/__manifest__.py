@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 {
     'name': 'Serial no for product lines in Sale orders and Invoices',
-    'version': '15.0.0.0',
+    'version': '14.0.0.0',
     'author': 'Cloudroits',
     'summary': 'Add serial/line nos to product lines in Sale orders and invoices',
     'description': """This module displays serial/line nos to product lines in Sale orders and invoices both in the form as well in reports.""",
