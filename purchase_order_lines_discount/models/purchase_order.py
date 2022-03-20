@@ -4,6 +4,19 @@
 
 from odoo import api, fields, models
 
+class PurchaseOrder(models.Model):
+    _inherit = 'purchase.order'
+
+    @api.depends('order_line')
+    def compute_total_before_discount(self):
+        total = 0
+        for line in self.order_line:
+            total += line.price
+        self.total_before_discount = total
+    discount = fields.Monetary(string='Discount', digits=(16, 2), default=0.0,
+                               store=True, compute='compute_lines_discount', track_visibility='always')
+    total_before_discount = fields.Monetary(string='Total Before Discount', digits=(16, 2), store=True, compute='compute_total_before_discount')
+
 
 class PurchaseOrderLine(models.Model):
     _inherit = "purchase.order.line"
