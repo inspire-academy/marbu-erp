@@ -25,31 +25,35 @@ from odoo import api, fields, models
 class SaleOrderLine(models.Model):
     _inherit = "sale.order.line"
 
-    serial_no = fields.Integer(string='Sl. No.', compute='_compute_serial_no', store=True)
+    serial_no = fields.Integer(string='Sl. No.', compute='_compute_serial_no')
 
     @api.depends('sequence', 'order_id')
     def _compute_serial_no(self):
         for so_line in self:
-            if not so_line.serial_no:
-                serial_no = 1
-                for line in so_line.mapped('order_id').order_line:
-                    if line.product_id:
-                        line.serial_no = serial_no
-                        serial_no += 1
+            #if not so_line.serial_no:
+            serial_no = 1
+            for line in so_line.mapped('order_id').order_line:
+                if line.product_id:
+                    line.serial_no = serial_no
+                    serial_no += 1
+                else:
+                    line.serial_no = 0
                         
 #Add serial no in Invoice lines
 class AccountMoveLine(models.Model):
 
     _inherit = 'account.move.line'
 
-    serial_no = fields.Integer(string='Sl. No.', compute='_compute_serial_no', store=True)
+    serial_no = fields.Integer(string='Sl. No.', compute='_compute_serial_no')
 
     @api.depends('sequence', 'move_id')
     def _compute_serial_no(self):
         for invoice_line in self:
-            if not invoice_line.serial_no:
-                serial_no = 1
-                for line in invoice_line.mapped('move_id').line_ids:
-                        if line.product_id:
-                            line.serial_no = serial_no
-                            serial_no += 1
+            #if not invoice_line.serial_no:
+            serial_no = 1
+            for line in invoice_line.mapped('move_id').line_ids.sorted(key=lambda r: r.sequence):
+                if line.product_id:
+                    line.serial_no = serial_no
+                    serial_no += 1
+                else:
+                    line.serial_no = 0
