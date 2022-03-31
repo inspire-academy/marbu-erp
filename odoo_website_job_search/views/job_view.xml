@@ -19,8 +19,7 @@
                 <t t-call="odoo_website_job_search.job_search">
                 </t>
             </xpath>
-        </template>        
-        
+        </template>                
         <template id="404">
             <t t-call="website.layout">
                 <div id="wrap">
@@ -36,5 +35,10 @@
                 </div>
             </t>
         </template>
+        <template id="job_search_assets_frontend_inherit" inherit_id="website.assets_frontend" name="Jobs Search">
+        <xpath expr="." position="inside">
+            <script type="text/javascript" src="/odoo_website_job_search/static/src/js/search.js"></script>
+        </xpath>
+    </template>
     </data>
 </odoo>

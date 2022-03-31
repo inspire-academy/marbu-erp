@@ -20,7 +20,7 @@
 
 {
     'name': 'Website Job Search',
-    'version': '15.0',
+    'version': '14.0',
     "category": "Website",
     'author': 'Cloudroits',
     'website': "https://www.cloudroits.com",
@@ -33,11 +33,6 @@
     'license': 'AGPL-3',
     'data': ['views/job_view.xml',
              ],
-     'assets': {
-        'web.assets_frontend': [
-            'odoo_website_job_search/static/src/js/search.js'
-        ]
-    },
     'images': ['static/description/odoo_website_job_search_banner.png'],
     'installable': True,
     'auto_install': False,
