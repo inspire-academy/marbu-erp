@@ -55,7 +55,7 @@ class RecruitmentInherit(WebsiteHrRecruitment):
         if kwargs.get('search'):
             search_string = kwargs.get('search', None)
         domain += [('name', 'ilike', search_string)]
-        job_ids = Jobs.search(domain, order="is_published desc, sequence, no_of_recruitment desc").ids
+        job_ids = Jobs.search(domain, order="is_published desc, no_of_recruitment desc").ids
         # Browse jobs as superuser, because address is restricted
         jobs = Jobs.sudo().browse(job_ids)
 
