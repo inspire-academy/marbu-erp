@@ -106,7 +106,7 @@ class RecruitmentInherit(WebsiteHrRecruitment):
             domain = [('website_published', '=', True)]
             job = request.env['hr.job'].with_user(SUPERUSER_ID).search(domain)
             sql = """select id as res_id, name as name, name as value from hr_job where name ILIKE '{}'"""
-            extra_query = ''
+            extra_query = ' and is_published = TRUE'
             limit = " limit 15"
             qry = sql + extra_query + limit
             request.cr.execute(qry.format(strings, tuple(job and job.ids)))
