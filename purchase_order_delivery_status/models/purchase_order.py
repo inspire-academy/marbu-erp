@@ -50,7 +50,7 @@ class PurchaseOrder(models.Model):
             elif any(p.state in ('waiting', 'confirmed') for p in pickings):
                 rec.delivery_status = 'processing'
 
-    def _update_delivery_status(self):
+    def _force_update_delivery_status(self):
         for rec in self:
             rec.delivery_status = 'received'
             rec.message_post(body=_("%(name)s forcefully closed the partically delivered LPO as fully Received.", name=rec.user_id))

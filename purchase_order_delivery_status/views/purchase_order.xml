@@ -9,7 +9,7 @@
                 <field name="delivery_status"/>
             </xpath>
             <xpath expr="//header/button[@name='action_rfq_send']" position="after">
-                <button name="_update_delivery_status" string="Mark LPO as Received" class="oe_highlight" type="object" attrs="{'invisible': [('delivery_status', '=', 'partial')]}"/>
+                <button name="_force_update_delivery_status" string="Mark LPO as Received" class="oe_highlight" type="object" attrs="{'invisible': [('delivery_status', '=', 'partial')]}"/>
             </xpath>
         </field>
     </record>
