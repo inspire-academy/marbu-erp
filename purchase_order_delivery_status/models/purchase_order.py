@@ -53,7 +53,7 @@ class PurchaseOrder(models.Model):
     def _update_delivery_status(self):
         for rec in self:
             rec.delivery_status = 'received'
-            rec.message_post(.message_post(body=_("%(name)s forcefully closed the partically delivered LPO as fully Received.", name=rec.user_id)))
+            rec.message_post(body=_("%(name)s forcefully closed the partically delivered LPO as fully Received.", name=rec.user_id))
     
     def update_delivery_status(self):
         for rec in self:
