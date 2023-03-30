@@ -84,7 +84,7 @@ class PO(models.Model):
                 order_date = vals['date_order']  
                 seq_date = fields.Datetime.context_timestamp(self, fields.Datetime.to_datetime(vals['date_order']))                
                 prefix = 'PO/'+ order_date[0:4] + '/' + order_date[5:7] + '/'
-            vals['name'] = prefix + self_comp.env['ir.sequence'].next_by_code('purchase.order', sequence_date=seq_date) or '/'
+                vals['name'] = prefix + self_comp.env['ir.sequence'].next_by_code('purchase.order', sequence_date=seq_date) or '/'
         return super(PO, self_comp).create(vals)
 
 class PurchaseReport(models.Model): 
