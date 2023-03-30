@@ -37,7 +37,7 @@ class PurchaseOrder(models.Model):
              'user_id': uid_id,
              'parent_purchase_id': self.ids[0]
              })
-        new_purchase_id.name = self.name + ' - R' + str(len(self.purchase_revision_ids.ids))
+        new_purchase_id.name = self.name + '/Rev' + str("%02d"%len(self.purchase_revision_ids.ids))
         new_purchase_id.origin = self.name
 
         action = self.env.ref('purchase.purchase_form_action').read()[0]
