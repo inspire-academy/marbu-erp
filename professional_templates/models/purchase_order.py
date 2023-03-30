@@ -78,10 +78,10 @@ class PO(models.Model):
         # Ensures default picking type and currency are taken from the right company.
         self_comp = self.with_company(company_id)
         if vals.get('name', 'New') == 'New':
-            seq_date = None
-            order_date = vals['date_order']            
+            seq_date = None                     
             prefix=None
             if 'date_order' in vals:
+                order_date = vals['date_order']  
                 seq_date = fields.Datetime.context_timestamp(self, fields.Datetime.to_datetime(vals['date_order']))                
                 prefix = 'PO/'+ order_date[0:4] + '/' + order_date[5:7] + '/'
             vals['name'] = prefix + self_comp.env['ir.sequence'].next_by_code('purchase.order', sequence_date=seq_date) or '/'
