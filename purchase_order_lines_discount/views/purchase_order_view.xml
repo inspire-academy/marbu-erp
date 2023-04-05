@@ -30,11 +30,11 @@
                     <field name="ex_disc_perc" widget="percentage" force_save="1"/>
                 </xpath>
                 <xpath expr="//field[@name= 'amount_tax']" position="after">
-                    <field name="discounts" widget="monetary" force_save="1"/>
+                    <field name="discounts" widget="monetary" force_save="1" string="Total Product Discount"/>
                 </xpath>
-                <xpath expr="//field[@name= 'amount_tax']" position="after">
+                <!--<xpath expr="//field[@name= 'amount_tax']" position="after">
                     <field name="discs_price" widget="monetary" force_save="1"/>
-                </xpath>
+                </xpath>-->
         </field>
     </record>
 </odoo>
