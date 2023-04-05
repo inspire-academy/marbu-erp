@@ -10,6 +10,31 @@
                 <field name="discount" groups="base.group_no_one" optional="show"/>
                 <field name="fixed_discount" groups="base.group_no_one" optional="show"/>
             </xpath>
+            <field name="notes" position="before">
+                    <group class="oe_subtotal_footer oe_right_demo"
+                           inherit_id="purchase.oe_subtotal_footer oe_right">
+                        <field name="extra_discount_in_price" widget="monetary"
+                               style="padding-right: 250px;margin-left: 0px;border-left-style: solid;border-left-width: 5px;"/>
+                        <field name="extra_discount_percentage"
+                               style="padding-right: 250px;margin-left: 0px;border-left-style: solid;border-left-width: 5px;text-align:30px"
+                               force_save="1"/>
+                        <field name="ex_dis_perc_eql_price"
+                               style="padding-right: 250px;margin-left: 0px;border-left-style: solid;border-left-width: 5px;"
+                               force_save="1"/>
+                    </group>
+                </field>
+                 <xpath expr="//field[@name= 'amount_tax']" position="after">
+                    <field name="ex_disc_price" widget="monetary" force_save="1"/>
+                </xpath>
+                <xpath expr="//field[@name= 'amount_tax']" position="after">
+                    <field name="ex_disc_perc" widget="percentage" force_save="1"/>
+                </xpath>
+                <xpath expr="//field[@name= 'amount_tax']" position="after">
+                    <field name="discounts" widget="monetary" force_save="1"/>
+                </xpath>
+                <xpath expr="//field[@name= 'amount_tax']" position="after">
+                    <field name="discs_price" widget="monetary" force_save="1"/>
+                </xpath>
         </field>
     </record>
 </odoo>
