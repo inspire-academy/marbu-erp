@@ -88,7 +88,7 @@ class PurchaseMonetaryInherit(models.Model):
         for rec in self.order_line:
             self.discounts += rec.fixed_discount
             self.discount_in_percentage += rec.discount / 100
-            self.discs_price += rec.price_unit
+            self.discs_price += rec.fixed_discount
 
     def get_extra(self):
         for rec in self:
