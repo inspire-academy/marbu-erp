@@ -89,7 +89,28 @@ class PurchaseMonetaryInherit(models.Model):
             self.discount_in_percentage += rec.discount / 100
             self.discs_price += rec.fixed_discount
 
-    @api.depends('extra_discount_in_price', 'extra_discount_percentage')
+    @api.onchange('extra_discount_in_price')
+    def _onchange_extra_discount_in_price(self):
+        for rec in self:
+            if rec.extra_discount_in_price != 0:
+                rec.extra_discount_percentage = (rec.amount_untaxed - (rec.amount_untaxed- rec.extra_discount_in_price)) / rec.amount_untaxed
+            if rec.extra_discount_in_price == 0:
+                rec.extra_discount_percentage = 0.0
+            rec.ex_disc_perc = rec.extra_discount_percentage
+            rec.ex_disc_price = rec.extra_discount_in_price            
+            rec.amount_total = rec.amount_untaxed + rec.amount_tax - rec.ex_disc_price - rec.ex_dis_perc_eql_price
+
+    @api.onchange("extra_discount_percentage")
+    def _onchange_extra_discount_percentage(self):
+       for rec in self:
+            if rec.extra_discount_percentage != 0:
+                rec.extra_discount_in_price = rec.amount_untaxed * rec.extra_discount_percentage/100
+            if rec.extra_discount_percentage == 0:
+                rec.extra_discount_in_price= 0.0
+            rec.ex_disc_perc = rec.extra_discount_percentage
+            rec.ex_disc_price = rec.extra_discount_in_price            
+            rec.amount_total = rec.amount_untaxed + rec.amount_tax - rec.ex_disc_price - rec.ex_dis_perc_eql_price
+    """@api.depends('extra_discount_in_price', 'extra_discount_percentage')
     @api.onchange('extra_discount_in_price', 'extra_discount_percentage')
     def get_extra(self):
         for rec in self:
@@ -97,8 +118,9 @@ class PurchaseMonetaryInherit(models.Model):
             rec.ex_disc_price = rec.extra_discount_in_price
             rec.ex_dis_perc_eql_price = (rec.amount_untaxed -rec.discs_price - rec.discounts) * (
                     rec.extra_discount_percentage / 100)
+            rec.amount_total = rec.amount_untaxed + rec.amount_tax - rec.ex_disc_price - rec.ex_dis_perc_eql_price
 
-    """def _set_extra_disc(self):
+    def _set_extra_disc(self):
         for ext in self:
             ext.ex_dis_perc_eql_price = (ext.amount_untaxed - ext.discs_price - ext.discounts) * (
                     ext.extra_discount_percentage / 100)
