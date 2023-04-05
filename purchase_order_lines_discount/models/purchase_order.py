@@ -75,7 +75,7 @@ class PurchaseMonetaryInherit(models.Model):
             disc.discounted_price = disc.amount_untaxed * (disc.discount_in_percentage / 100) * 100
 
         for rec in self:
-            rec.amount_total = rec.amount_untaxed + rec.amount_tax - rec.discounts - rec.ex_disc_price - rec.ex_dis_perc_eql_price
+            rec.amount_total = rec.amount_untaxed + rec.amount_tax - rec.ex_disc_price
 
     @api.depends('order_line.fixed_discount', 'order_line.discount', 'order_line')
     @api.onchange('order_line')
@@ -98,7 +98,7 @@ class PurchaseMonetaryInherit(models.Model):
                 rec.extra_discount_percentage = 0.0
             rec.ex_disc_perc = rec.extra_discount_percentage / 100
             rec.ex_disc_price = rec.extra_discount_in_price            
-            rec.amount_total = rec.amount_untaxed + rec.amount_tax - rec.ex_disc_price - rec.ex_dis_perc_eql_price
+            rec.amount_total = rec.amount_untaxed + rec.amount_tax - rec.ex_disc_price
 
     @api.onchange("extra_discount_percentage")
     def _onchange_extra_discount_percentage(self):
@@ -109,7 +109,7 @@ class PurchaseMonetaryInherit(models.Model):
                 rec.extra_discount_in_price= 0.0
             rec.ex_disc_perc = rec.extra_discount_percentage / 100
             rec.ex_disc_price = rec.extra_discount_in_price            
-            rec.amount_total = rec.amount_untaxed + rec.amount_tax - rec.ex_disc_price - rec.ex_dis_perc_eql_price
+            rec.amount_total = rec.amount_untaxed + rec.amount_tax - rec.ex_disc_price
     """@api.depends('extra_discount_in_price', 'extra_discount_percentage')
     @api.onchange('extra_discount_in_price', 'extra_discount_percentage')
     def get_extra(self):
