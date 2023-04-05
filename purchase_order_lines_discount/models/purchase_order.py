@@ -96,7 +96,7 @@ class PurchaseMonetaryInherit(models.Model):
                 rec.extra_discount_percentage = ((rec.amount_untaxed - (rec.amount_untaxed- rec.extra_discount_in_price)) / rec.amount_untaxed) * 100
             if rec.extra_discount_in_price == 0:
                 rec.extra_discount_percentage = 0.0
-            rec.ex_disc_perc = rec.extra_discount_percentage
+            rec.ex_disc_perc = rec.extra_discount_percentage / 100
             rec.ex_disc_price = rec.extra_discount_in_price            
             rec.amount_total = rec.amount_untaxed + rec.amount_tax - rec.ex_disc_price - rec.ex_dis_perc_eql_price
 
@@ -107,7 +107,7 @@ class PurchaseMonetaryInherit(models.Model):
                 rec.extra_discount_in_price = rec.amount_untaxed * rec.extra_discount_percentage/100
             if rec.extra_discount_percentage == 0:
                 rec.extra_discount_in_price= 0.0
-            rec.ex_disc_perc = rec.extra_discount_percentage
+            rec.ex_disc_perc = rec.extra_discount_percentage / 100
             rec.ex_disc_price = rec.extra_discount_in_price            
             rec.amount_total = rec.amount_untaxed + rec.amount_tax - rec.ex_disc_price - rec.ex_dis_perc_eql_price
     """@api.depends('extra_discount_in_price', 'extra_discount_percentage')
