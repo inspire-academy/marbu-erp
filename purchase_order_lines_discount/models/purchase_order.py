@@ -66,10 +66,9 @@ class PurchaseMonetaryInherit(models.Model):
     amount_tax = fields.Monetary(string='Taxes')
     extra_discount_in_price = fields.Monetary(string='Order Discount Fixed Amount')
     extra_discount_percentage = fields.Float(string='Order Discount Fixed Percentage', readonly=False)
-    ex_disc_price = fields.Monetary(string='Order Discount Fixed Amount', compute='get_extra')
-    ex_disc_perc = fields.Monetary(string='Order Discount Fixed percentage', compute='get_extra')
-    ex_dis_perc_eql_price = fields.Monetary(string='Order Discount Fixed Percentage Equal Amount',
-                                            compute='_set_extra_disc')
+    ex_disc_price = fields.Monetary(string='Order Discount Fixed Amount')
+    ex_disc_perc = fields.Monetary(string='Order Discount Fixed percentage')
+    ex_dis_perc_eql_price = fields.Monetary(string='Order Discount Fixed Percentage Equal Amount')
 
     def _get_sum(self):
         for disc in self:
@@ -89,13 +88,17 @@ class PurchaseMonetaryInherit(models.Model):
             self.discounts += rec.fixed_discount
             self.discount_in_percentage += rec.discount / 100
             self.discs_price += rec.fixed_discount
-
+    @api.depends('ex_disc_price', 'ex_disc_perc')
+    @api.onchange('ex_disc_price', 'ex_disc_perc')
     def get_extra(self):
         for rec in self:
             rec.ex_disc_perc = rec.extra_discount_percentage / 100
             rec.ex_disc_price = rec.extra_discount_in_price
+            rec.ex_dis_perc_eql_price = (rec.amount_untaxed -rec.discs_price - rec.discounts) * (
+                    rec.extra_discount_percentage / 100)
 
-    def _set_extra_disc(self):
+    """def _set_extra_disc(self):
         for ext in self:
             ext.ex_dis_perc_eql_price = (ext.amount_untaxed - ext.discs_price - ext.discounts) * (
                     ext.extra_discount_percentage / 100)
+    """
