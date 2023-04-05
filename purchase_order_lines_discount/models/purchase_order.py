@@ -93,7 +93,7 @@ class PurchaseMonetaryInherit(models.Model):
     def _onchange_extra_discount_in_price(self):
         for rec in self:
             if rec.extra_discount_in_price != 0:
-                rec.extra_discount_percentage = (rec.amount_untaxed - (rec.amount_untaxed- rec.extra_discount_in_price)) / rec.amount_untaxed
+                rec.extra_discount_percentage = ((rec.amount_untaxed - (rec.amount_untaxed- rec.extra_discount_in_price)) / rec.amount_untaxed) * 100
             if rec.extra_discount_in_price == 0:
                 rec.extra_discount_percentage = 0.0
             rec.ex_disc_perc = rec.extra_discount_percentage
