@@ -75,7 +75,7 @@ class PurchaseMonetaryInherit(models.Model):
             disc.discounted_price = disc.amount_untaxed * (disc.discount_in_percentage / 100) * 100
 
         for rec in self:
-            rec.amount_total = rec.amount_untaxed + rec.amount_tax - rec.discounts - rec.discs_price - rec.ex_disc_price - rec.ex_dis_perc_eql_price
+            rec.amount_total = rec.amount_untaxed + rec.amount_tax - rec.discounts - rec.ex_disc_price - rec.ex_dis_perc_eql_price
 
     @api.depends('order_line.fixed_discount', 'order_line.discount', 'order_line')
     @api.onchange('order_line')
