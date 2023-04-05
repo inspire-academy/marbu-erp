@@ -18,9 +18,9 @@
                         <field name="extra_discount_percentage"
                                style="padding-right: 250px;margin-left: 0px;border-left-style: solid;border-left-width: 5px;text-align:30px"
                                force_save="1"/>
-                        <field name="ex_dis_perc_eql_price"
+                        <!--<field name="ex_dis_perc_eql_price"
                                style="padding-right: 250px;margin-left: 0px;border-left-style: solid;border-left-width: 5px;"
-                               force_save="1"/>
+                               force_save="1"/>-->
                     </group>
                 </field>
                  <xpath expr="//field[@name= 'amount_tax']" position="after">
