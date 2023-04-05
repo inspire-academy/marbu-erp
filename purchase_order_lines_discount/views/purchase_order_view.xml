@@ -26,10 +26,10 @@
                  <xpath expr="//field[@name= 'amount_tax']" position="after">
                     <field name="ex_disc_price" widget="monetary" force_save="1" string="Order Discount"/>
                 </xpath>
-                <xpath expr="//field[@name= 'amount_tax']" position="after">
+                <!--<xpath expr="//field[@name= 'amount_tax']" position="after">
                     <field name="ex_disc_perc" widget="percentage" force_save="1" string="Order Discount Percentage"//>
                 </xpath>
-                <!--<xpath expr="//field[@name= 'amount_tax']" position="after">
+                <xpath expr="//field[@name= 'amount_tax']" position="after">
                     <field name="discounts" widget="monetary" force_save="1" string="Total Product Discount"/>
                 </xpath>
                 <xpath expr="//field[@name= 'amount_tax']" position="after">
