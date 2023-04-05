@@ -88,8 +88,9 @@ class PurchaseMonetaryInherit(models.Model):
             self.discounts += rec.fixed_discount
             self.discount_in_percentage += rec.discount / 100
             self.discs_price += rec.fixed_discount
-    @api.depends('ex_disc_price', 'ex_disc_perc')
-    @api.onchange('ex_disc_price', 'ex_disc_perc')
+
+    @api.depends('extra_discount_in_price', 'extra_discount_percentage')
+    @api.onchange('extra_discount_in_price', 'extra_discount_percentage')
     def get_extra(self):
         for rec in self:
             rec.ex_disc_perc = rec.extra_discount_percentage / 100
